@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Post</title>
+</head>
+<body>
+    <h1>Edit Post</h1>
+    <p>id: <%=post.id %></p>
+    <p>Username: <%= post.username %> </p>
+    <form action="/posts/<%=post.id%>/edit?_method=Patch" method="post" style="max-width:400px;margin:40px auto;padding:24px;border:1px solid #ccc;border-radius:8px;background:#fafafa;box-shadow:0 2px 8px #0001;">
+        
+        <textarea name="content" placeholder="Write your post here..." style="width:100%;padding:10px;height:100px;margin-bottom:12px;border:1px solid #ccc;border-radius:4px;font-size:1em;resize:vertical;"><%= post.content %></textarea>
+        <button type="submit" style="width:100%;padding:10px;background:#007bff;color:#fff;border:none;border-radius:4px;font-size:1em;cursor:pointer;">Submit</button>
+    </form>
+</body>
+</html>
