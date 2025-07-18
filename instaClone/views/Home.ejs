@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Post</title>
+    <link rel="stylesheet" href="../public/style.css">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+<body class="bg-black flex flex-col items-center justify-center min-h-screen">
+<% for (post of posts) { %>
+    <div class="bg-gray-900 rounded-lg shadow-lg max-w-xl w-full mx-0">
+        <!-- Post Header -->
+        <div class="flex items-center p-4">
+            <img src="<%= post.profileurl %>" alt="Profile Picture" class="w-10 h-10 rounded-full mr-3">
+            <div>
+                <div class="font-bold text-white text-sm"><%= post.username %></div>
+                <div class="text-gray-400 text-xs">Original audio</div>
+            </div>
+            <div class="ml-auto flex items-center text-blue-500 text-sm font-semibold cursor-pointer">
+                <span class="mr-2"><%= post.time.split("T")[0] %> </span>
+                <span class="mr-2">•</span>
+                <span>Follow</span>
+            </div>
+        <div class="text-gray-400 cursor-pointer relative" id="kebab-menu-button">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+            </svg>
+            <div id="kebab-menu-dropdown" class="hidden absolute right-2 mt-2 w-48 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 z-50">
+            <a href="http://localhost:3000/post/<%=post.id%>" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                Edit
+            </a>
+            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                Share
+            </a>
+            <a href="#" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100">
+                Report
+            </a>
+            </div>
+        </div>
+
+        
+    </div>
+
+        <!-- Post Image -->
+        <div class="w-full">
+            <img src="<%= post.postimgurl %>" alt="Post Image" class="w-full h-auto object-cover">
+        </div>
+        <!-- Caption -->
+        <div class="px-4 py-1 text-white text-base font-medium">
+            <%= post.caption %>
+        </div>
+        <!-- Post Actions -->
+        <div class="flex items-center justify-between p-2 text-gray-400">
+            <div class="flex items-center space-x-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 cursor-pointer hover:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 cursor-pointer hover:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 cursor-pointer hover:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-3.316l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 0a3 3 0 115.367 2.684M12 12a3 3 0 100-6 3 3 0 000 6z" />
+                </svg>
+            </div>
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 cursor-pointer hover:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                </svg>
+            </div>
+        </div>
+
+        <!-- Likes and Caption -->
+        <div class="px-4 pb-4 text-white text-sm">
+            <div class="font-bold mb-1"><%= post.likescount %> likes</div>
+            <div>
+                <span class="font-bold"><%if(post.comments.length>1){%> <%= post.comments[0].user %> </span>  <%= post.comments[0].text %></span> 
+            </div>
+            <div class="text-gray-400 mt-1 cursor-pointer">
+                ... more
+            </div>
+            <div class="text-gray-400 mt-2 cursor-pointer">
+                View all 662 comments
+            </div> <%}%>
+            <div class="flex items-center mt-2">
+                <input type="text" placeholder="Add a comment..." class="bg-transparent border-none outline-none flex-grow text-white placeholder-gray-500">
+                <button class="text-blue-500 font-semibold ml-2">Post</button>
+            </div>
+        </div>
+    </div>
+<% } %>
+<script src="/script.js"></script>
+</body>
+</html>
